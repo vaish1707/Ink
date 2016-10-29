@@ -1,0 +1,178 @@
+<?php
+include('session.php');
+?>
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+        <link rel="stylesheet" href="css/jquery-ui.css">
+        <link type="text/css" rel="stylesheet" href="css/custom.css">
+       <link rel="stylesheet" href="css/font-awesome.css">
+        <script src="js/jquery.min.js"></script>
+        <script src="js/jquery-ui.min.js"></script>
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-route.min.js"></script>
+        <script src="controllers/maincontroller.js"></script>
+
+
+    </head>
+
+    <body ng-app="senseApp">
+        <header>
+            <nav class="top-nav">
+                <div class="nav-wrapper  purple darken-3">
+                    <a class="brand-logo">SensemColours</a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="estimate.html">Get Estimate</a></li>
+                        <li><a href="single.html">Add/Update</a></li>
+                        <li><a href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
+
+                    </ul>
+                    <ul class="side-nav" id="mobile-demo">
+                        <li><a href="estimate.html">Get Estimate</a></li>
+                        <li><a href="single.html">Add/Update</a></li>
+                        <li><a href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
+
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- Raw -->
+
+        <div class="container">
+            <div class="row" ng-controller="addrawController">
+                <div class="col s12">
+                    <div class="card hoverable">
+                        <form name="rawForm" novalidate>
+                            <div class="card-content">
+                                <span class="card-title">Raw Materials</span>
+                                <div class="row">
+                                    <div class="input-field col s6" ng-init="getraw()">
+                                        <input placeholder="Type Raw Material Name" name="rawname" auto-complete-directive ui-items="rawnames" ng-model="raw_material" id="raw_material" type="text" required>
+
+                                        <input placeholder="Type Raw Material price here" id="price_per_kg" name="rawprice" type="text" ng-model="price_per_kg" class="validate" required>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-action">
+                                <button id="btn-create-product" class="waves-effect waves-light btn margin-bottom-1em" ng-disabled="rawForm.$invalid" ng-click="addRawMeterial()">
+                            <i class="material-icons left">add</i>Add/Update Raw Materials</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <!-- Medium -->
+
+        <div class="container">
+            <div class="row" ng-controller="addmediumController">
+                <div class="col s12">
+                    <div class="card hoverable">
+                        <form name="mediumForm" novalidate>
+                            <div class="card-content">
+                                <span class="card-title">Medium</span>
+                                <div class="row">
+                                    <div class="input-field col s6" ng-init="getmedium()">
+                                        <input placeholder="Type Medium Name" name="mediumname" auto-complete-directive ui-items="mediumnames" ng-model="medium_name" type="text" required>
+
+
+                                        <input placeholder="Type Raw Material/Medium Name" name="rawmediumname" auto-complete-directive ui-items="raw_medium_names" ng-model="raw_medium_name" type="text" required>
+
+                                        <input ng-model="raw_md_price" type="text" class="validate" id="raw-price" name="raw-price" placeholder="Type Raw Material price here..." required>
+
+
+                                        <input ng-model="quantity" type="text" class="validate" name="quantity" id="form-quantity" placeholder="Type quantity here..." required>
+
+
+
+                                        <input ng-model="price" type="text" class="validate" id="form-price" name="price" placeholder="Type Medium price here..." required>
+
+
+                                    </div>
+                                    <div class="input-field col s3">
+                                        <p>
+                                            <input type="checkbox" class="filled-in" id="filled-in-box" ng-click="repeatVal()" />
+                                            <label for="filled-in-box">Check this to repeat medium and medium price</label>
+                                        </p>
+                                    </div>
+                                     <div class="input-field col s3">
+                                        <p>
+                                            <input type="checkbox" class="filled-in" id="medium-raw" ng-click="rawflagchecked()" />
+                                            <label for="medium-raw">Check this if the entered value is raw material</label>
+                                        </p>
+                                    </div>
+                                  
+                                </div>
+                                
+                            </div>
+                            <div class="card-action">
+                                <button id="btn-create-product" class="waves-effect waves-light btn margin-bottom-1em" ng-disabled="mediumForm.$invalid" ng-click="addmedium()">
+                            <i class="material-icons left">add</i>Add/Update Medium</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <!-- Ink -->
+
+        <div class="container">
+            <div class="row" ng-controller="addInkcontroller">
+                <div class="col s12">
+                    <div class="card hoverable">
+                        <form name="InkForm" novalidate>
+                            <div class="card-content">
+                                <span class="card-title">Ink</span>
+                                <div class="row">
+                                    <div class="input-field col s6" ng-init="getink()">
+                                        <input placeholder="Type Ink Name" name="inkname" auto-complete-directive ui-items="ink_names" ng-model="ink_name" type="text" required>
+
+
+                                        <input placeholder="Type Raw Material/Medium Name" name="rawmediumname" auto-complete-directive ui-items="raw_ink_medium_names" ng-model="raw_ink_medium_name" type="text" ng-blur="inkblur(raw_ink_medium_name)" required>
+
+
+
+                                        <input ng-model="rawprice" type="text" class="validate" name="rawprice" id="rawprice" placeholder="Type rawprice here..." required>
+
+
+                                        <input ng-model="quantity" type="text" class="validate" id="form-quantity" name="quantity" placeholder="Type quantity here..." required>
+
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <p>
+                                            <input type="checkbox" class="filled-in" id="check-in" ng-click="flagchecked()" />
+                                            <label for="check-in">Check this if the entered value is raw material</label>
+                                        </p>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="card-action">
+                                <button id="btn-create-product" class="waves-effect waves-light btn margin-bottom-1em" ng-disabled="InkForm.$invalid" ng-click="addInk()">
+                            <i class="material-icons left">add</i>Add/Update Ink</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+        <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" src="js/select-materialize.js"></script>
+
+    </body>
+
+    </html>

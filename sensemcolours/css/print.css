@@ -1,0 +1,39 @@
+/*
+table, th
+{
+    
+    margin:40px;
+    
+    width:100%;
+}
+td {
+padding:30px;
+}
+*/
+ @media print {
+      .estimateBorder{
+          border: none !important;
+      }
+      table , th ,td
+
+      { 
+          
+       margin-top:30px !important;
+       margin-left: 30px !important;
+       margin-right: 50px  !important;
+      
+       
+      } 
+      .estimateHeader{
+         padding-top:50px !important;
+         margin-left: 30px !important;
+      }
+       .inkheader{
+         padding-top:10px !important;
+         margin-left: 30px !important;
+      }
+             
+}
+
+
+

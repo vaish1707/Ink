@@ -1,0 +1,168 @@
+<?php
+include('session.php');
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection,print" />
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link type="text/css" rel="stylesheet" href="css/custom.css">
+     <link type="text/css" rel="stylesheet" href="css/print.css" media="print,handheld">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="controllers/maincontroller.js"></script>
+
+
+</head>
+
+<body ng-app="senseApp">
+    <header>
+        <nav class="top-nav">
+            <div class="nav-wrapper  purple darken-3">
+                <a class="brand-logo">SensemColours</a>
+                <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="estimate.html">Get Estimate</a></li>
+                    <li><a href="single.html">Add/Update</a></li>
+                    <li><a href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
+
+                </ul>
+                <ul class="side-nav" id="mobile-demo">
+                    <li><a href="estimate.html">Get Estimate</a></li>
+                    <li><a href="single.html">Add/Update</a></li>
+                    <li><a href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></li>
+
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="container"  ng-controller="getinkcontroller">
+        <div class="row ">
+            <form name="estimateform" class="col s12" novalidate>
+                <div class="row" ng-init="getink()">
+                    <div class="input-field col s6">
+                        <input placeholder="Type name to search" auto-complete-directive ui-items="inknames" ng-model="selectedink" name="inkname" type="text" required>
+                       
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <button class="btn waves-effect waves-light" type="submit " name="action" ng-disabled="estimateform.$invalid" ng-click="getJointtable(selectedink)">Get Estimate details
+    <i class="material-icons right ">send</i></button>
+          </div>
+          </div>
+         
+          </div>
+          </form>
+        
+         <!-- table that shows product record list -->
+
+         
+<!-- table that shows product record list -->
+<div id="printableArea">
+    <div class="tableHeader">
+        <h5 style="text-align:center;font-size:20px;">Sensem Colours</h5>
+        <h6 class="estimateHeader" ng-model="displayink" style="font-size:15px;"><b>Estimate Details:-</b></h6>
+        <h6 class="inkheader" style="font-size:15px;"><b>{{displayink}}</b></h6>
+    </div>
+    <table class="striped centered responsive-table">
+        <thead>
+            <tr class="estimateBorder">
+                <th class="width-30-pct text-align-center">Raw Material/Medium Name</th>
+                <th class="text-align-center">Quantity(in kgs)</th>
+                <th class="text-align-center">Price (in INR)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="d in rawmediumnames">
+                <td class="text-align-center" contenteditable="true">{{ d.Component }}</td>
+                <td class="text-align-center" contenteditable="true">{{ d.Quantity }}</td>
+                <td class="text-align-center" contenteditable="true">{{ d.Quantity * d.Price }}</td>
+
+            </tr>
+        </tbody>
+
+    </table>
+
+</br>
+<div class="row total-style">
+
+  <div class="col s12">Total Quantity: {{getTotalQuantity()}} Kgs</div>
+    <div class="col s12">Total Price: Rs {{ getTotal() }} </div>
+</div>
+</div>
+</div>
+<div class="container">
+<div class="col s6">
+    <button type="button" class="btn waves-effect waves-light" onclick="printDiv('printableArea')">Print</button>
+    <button type="button"  data-target="emailmodal" class="btn modal-trigger">Send Mail</button>
+     
+</div>
+<div class="col s6">
+  <!-- Send Email Modal -->
+  
+    <div id="emailmodal" class="modal">
+    <div class="modal-content">
+      <h4>Send Mail</h4>
+      <p> 
+          <input placeholder="Enter Mail ID" id="toAddressEmail" type="email" class="validate">
+      </p>
+    </div>
+    <div class="modal-footer">
+     <input type="submit" class="btn waves-effect waves-light" id="sendEmail"  value="Send Mail"></input>
+    </div>
+
+</div>
+
+</div>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="js/select-materialize.js"></script>
+    <script>
+                  function printDiv(divName){
+     var printContents = document.getElementById(divName).innerHTML;
+     var originalContents = document.body.innerHTML;
+     document.body.innerHTML = printContents;
+     window.print();
+     document.body.innerHTML = originalContents;
+    }
+
+     
+
+      $('#sendEmail').on('click',function(e){
+         e.stopImmediatePropagation();
+         
+     $.ajax({
+          async: false,
+         type: 'POST',
+         url: 'send_mail.php',
+         data: { 
+                'toAddress': $('#toAddressEmail').val(),
+                 'content' : $('#printableArea').html()
+            },
+            async:false,
+         success:function(){
+              $('#emailmodal').closeModal();
+            Materialize.toast('Email sent Successfully', 10000);
+         },
+         error:function(){
+             $('#emailmodal').closeModal();
+            Materialize.toast('Error While Sending Email', 10000);
+         }
+     });
+  });
+
+
+    </script>
+
+</body>
+
+</html>
