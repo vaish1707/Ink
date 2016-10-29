@@ -1,6 +1,6 @@
 <?php
    
-        $conn = mysqli_connect("localhost","sensehql_colors","Dinothunder1.","sensehql_inventory");    
+        $conn = mysqli_connect("localhost","root","","sensehql_inventory");    
 
         session_start();
 
