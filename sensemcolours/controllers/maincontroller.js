@@ -277,7 +277,7 @@ app.controller('getinkcontroller', function ($scope, $http) {
             var ink = $scope.rawmediumnames[i];
             total += (ink.Price * ink.Quantity);
         }
-        return total;
+        return total.toFixed(2);
     }
 
     $scope.getTotalQuantity = function () {
