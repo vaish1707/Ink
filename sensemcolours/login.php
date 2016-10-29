@@ -10,7 +10,7 @@ if(isset($_POST['submit'])){
         $user = $_POST['user']; //sensehql_colors
         $pass = $_POST['pass']; //Dinothunder1.
         
-        $conn = mysqli_connect("localhost","sensehql_colors","Dinothunder1.","sensehql_inventory");
+        $conn = mysqli_connect("localhost","root","","sensehql_inventory");
 
         // Check connection
         if (mysqli_connect_errno())
