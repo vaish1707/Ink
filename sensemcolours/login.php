@@ -7,8 +7,8 @@ if(isset($_POST['submit'])){
         echo "Username password invalid";
     }
     else{
-        $user = $_POST['user']; //sensehql_colors
-        $pass = $_POST['pass']; //Dinothunder1.
+        $user = $_POST['user']; 
+        $pass = $_POST['pass']; 
         
         $conn = mysqli_connect("localhost","root","","sensehql_inventory");
 
