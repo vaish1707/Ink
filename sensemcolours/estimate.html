@@ -84,8 +84,8 @@ include('session.php');
         <tbody>
             <tr ng-repeat="d in rawmediumnames">
                 <td class="text-align-center" contenteditable="true">{{ d.Component }}</td>
-                <td class="text-align-center" contenteditable="true">{{ d.Quantity }}</td>
-                <td class="text-align-center" contenteditable="true">{{ d.Quantity * d.Price }}</td>
+               <td class="text-align-center" contenteditable="true">{{ d.Quantity | number:3}}</td>
+                <td class="text-align-center" contenteditable="true">{{ d.Quantity * d.Price | number:2}}</td>
 
             </tr>
         </tbody>
