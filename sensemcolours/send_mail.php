@@ -2,7 +2,7 @@
 
 $toAddress = $_POST['toAddress'];
 
-$subject = "Test Mail from PHP";
+$subject = "Sensem Colours";
 
 
 $message = "<div><b><p>Hi,</p><br/>" .
@@ -15,7 +15,7 @@ $headers = "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
 // More headers
-$headers .= 'From: <selvaganesh93@gmail.com>' . "\r\n";
+$headers .= 'From: <ink@sensemcolours.com>' . "\r\n";
 //$headers .= 'Cc: abirami.vaishnavi@gmail.com' . "\r\n";
 
 
